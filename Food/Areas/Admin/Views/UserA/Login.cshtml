@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    
+    <link href="~/Areas/Content/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <!-- Main css -->
+    <link href="~/Areas/Content/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <form action="~/Admin/UserA/Login" method="post" class="box login">
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure> <img src="~/Content/images/signin-image.jpg" /></figure>
+                       
+                        
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign up</h2>
+                        
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="UserName"  placeholder="Tên Đăng Nhập" />
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="PassWord" id="your_pass" placeholder="Mật Khẩu" />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <p style ="font-style:italic; color:red; margin:0px;">
+                                    @ViewBag.ThongBao</p>
+                                
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                            </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    
+    <script src="~/Areas/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Areas/Content/js/main.js"></script>
+</body>
+</html>
+

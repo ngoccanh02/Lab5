@@ -1,0 +1,114 @@
+﻿@using Food.Models;
+@using PagedList.Mvc;
+@model  PagedList.PagedList<Product>
+@{
+    ViewBag.Title = "CategoryDetail";
+    Layout = "~/Views/Shared/_FoodLayoutPage1.cshtml";
+}
+<style>
+    .breadcrumb__text {
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        padding-left: 409px;
+    }
+</style>
+<div class="hero__search" style="margin-left:389px;margin-bottom:10px;">
+    <div class="hero__search__form">
+        @using (Html.BeginForm("Find", "Food", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập từ khóa tìm kiếm">
+            <button type="submit" class="site-btn">SEARCH</button>
+        }
+    </div>
+</div>
+<section class="breadcrumb-section set-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Hưng Vũ Vegetable</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index","Food")">Trang chủ</a>
+                        <span></span>
+                    </div>
+                </div>
+                <img style="height:160px;" src="~/Content/Images/breadcrumb.jpg" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Danh mục sản phẩm</h4>
+                        <ul>
+                            <li>@Html.Action("Category", "Food")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                <div class="filter__item">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                <span>Sort By</span>
+                                <select>
+                                    <option value="0">Default</option>
+                                    <option value="0">Default</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="filter__found">
+                                <h6><span>@Model.Count()</span> Sản Phẩm </h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3">
+                            <div class="filter__option">
+                                <span class="icon_grid-2x2"></span>
+                                <span class="icon_ul"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg">
+                                    <img src="/Content/Images/@item.Image" />
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="@Url.Action("Detail","Food",new {id = item.ProductID })">@item.Name</a></h6>
+                                    <h5>@Html.FormatValue(@item.Price, "{0:#,##0}")VNĐ </h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="product__pagination">
+
+                    <div class="MenuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("CategoryDetail", new {id = ViewBag.IDCate, page = page }))
+                    </div>
+                    <style>
+                        .MenuTrang {
+                            display: inline;
+                            text-align: center;
+                        }
+                    </style>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

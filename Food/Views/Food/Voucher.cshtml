@@ -1,0 +1,142 @@
+﻿@using Food.Models;
+@model IEnumerable<Food.Models.Collect>
+@{
+    ViewBag.Title = "Voucher";
+    Layout = "~/Views/Shared/_FoodLayoutPage1.cshtml";
+}
+<style>
+    .ribbon {
+        height: 188px;
+        position: relative;
+        margin-bottom: 30px;
+        background: url(https://html5book.ru/wp-content/uploads/2015/10/snow-road.jpg);
+        background-size: cover;
+        text-transform: uppercase;
+        color: white;
+    }
+
+    .ribbon1 {
+        position: absolute;
+        top: -6.1px;
+        right: 10px;
+    }
+
+        .ribbon1:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 53px solid transparent;
+            border-right: 53px solid transparent;
+            border-top: 10px solid #f8463f;
+        }
+
+        .ribbon1 span {
+            position: relative;
+            display: block;
+            text-align: center;
+            background: #f8463f;
+            font-size: 14px;
+            line-height: 1;
+            padding: 12px 8px 10px;
+            border-top-right-radius: 8px;
+            width: 90px;
+        }
+
+            .ribbon1 span:before,
+            .ribbon1 span:after {
+                position: absolute;
+                content: "";
+            }
+
+            .ribbon1 span:before {
+                height: 6px;
+                width: 6px;
+                left: -6px;
+                top: 0;
+                background: #f8463f;
+            }
+
+            .ribbon1 span:after {
+                height: 6px;
+                width: 8px;
+                left: -8px;
+                top: 0;
+                border-radius: 8px 8px 0 0;
+                background: #c02031;
+            }
+    }
+</style>
+<style>
+    .breadcrumb__text {
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        padding-left: 414px;
+    }
+</style>
+<div class="hero__search" style="margin-left:365px;margin-bottom:10px;">
+    <div class="hero__search__form">
+        @using (Html.BeginForm("Find", "Food", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập từ khóa tìm kiếm">
+            <button type="submit" class="site-btn">SEARCH</button>
+        }
+    </div>
+</div>
+<section class="breadcrumb-section set-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Hưng Vũ Vegetable</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index","Food")">Trang chủ</a>
+                        <span>@Html.ActionLink("Shop", "Food")</span>
+                    </div>
+                </div>
+                <img style="height:160px;" src="~/Content/Images/breadcrumb.jpg" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Danh mục sản phẩm</h4>
+                        <hr style="color:red;" />
+                        <ul>
+                            <li>@Html.Action("Category", "Food")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                <h2 style="margin-bottom: 20px;text-align: center;color:red"><b>Voucher</b></h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        FoodStoreEntities db = new FoodStoreEntities();
+                        Promotion pr = db.Promotions.Single(m => m.PromotionID == item.PromotionID);
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="ribbon">
+                                <span class="ribbon1"><span>Giảm @pr.Discount%</span></span>
+                                <div style="background: #ebf6e0;text-align:center; border-radius: 2px; border: 1px solid #b3dc82; box-sizing: border-box; float: none; margin: 0px auto; outline: 0px; padding: 15px 20px; vertical-align: baseline; color: #5f9025; font-family: arial, sans-serif; font-size: 15px;">
+                                    <p><input type="hidden" id="idpromotion" value="@item.PromotionID" /></p>
+                                    <p></p>
+                                    <p style="text-align:center;color:darkblue;">@pr.Description</p>
+                                    <span>@String.Format("{0:d/M/yyyy}", @pr.DateStart)-@String.Format("{0:d/M/yyyy}", @pr.DateEnd)</span>
+                                    <a id="delete" class="btn btn-outline-danger">Xóa</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

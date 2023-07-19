@@ -1,0 +1,24 @@
+﻿@using Food.Models;
+@model IEnumerable<Food.Models.Rate_>
+@{foreach (var item in Model)
+    {
+        FoodStoreEntities db = new FoodStoreEntities();
+        Account rv = db.Accounts.SingleOrDefault(n => n.AccountID == item.AccountID);
+
+<div>
+    <div><i class="fa fa-user" aria-hidden="true"></i>@rv.UserName</div>
+    @for (int i = 0; i < item.NumberStar; i++)
+    {
+        <span class="fa fa-star checked"></span>
+    }
+    @for (int i = 0; i < 5 - item.NumberStar; i++)
+    {
+        <span class="fa fa-star"></span>
+    }
+    <p>@item.Date</p>
+    <p>
+        @item.Comment
+    </p>
+</div>
+        }
+    }

@@ -1,0 +1,52 @@
+﻿@{
+        Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Xác nhận Email</title>
+    <link rel="stylesheet" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+    @if (ViewBag.ThongBao != null)
+        {
+    <script>
+        alert("@Html.Raw(@ViewBag.ThongBao)")
+    </script>
+        } 
+        <section class="sign-in">
+            <div class="container" style="margin-top:90px;">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="~/Content/Images/Emailpng.png" alt="sing up image"></figure>
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Xác nhận Email</h2>
+                        @using (Html.BeginForm())
+                                            {
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-email"></i><span style="color:red;">*</span></label>
+                            <input type="email" name="email" id="your_pass" placeholder="Nhập Email của bạn" />
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Xác nhận" />
+                        </div>
+                                            }
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="~/Content/js/Register.js"></script>
+        <script src="~/Content/js/mainRegister.js"></script>
+    </body>
+</html>

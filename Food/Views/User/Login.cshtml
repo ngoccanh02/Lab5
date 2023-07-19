@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!--recaptcha-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+    @if (ViewBag.ThongBao != null)
+    {
+    <script>
+        alert("@Html.Raw(@ViewBag.ThongBao)")
+    </script>
+    }
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="~/Content/Images/signin-image.jpg" alt="sing up image"></figure>
+                    <div class="signup-image-link">@Html.ActionLink("Tạo tài khoản mới", "Register", "User") </div>
+
+
+                </div>
+
+                <div class="signin-form">
+                    <h2 class="form-title">Đăng nhập</h2>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="form-group">
+                            <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i><span style="color:red;">* </span></label>
+                            <input type="text" name="Email" id="your_name" placeholder="Tài khoản Email" /><span style="color: red;">@ViewData["err1"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="your_pass"><i class="zmdi zmdi-lock"></i><span style="color:red;">*</span></label>
+                            <input type="password" name="Password" id="your_pass" placeholder="Mật khẩu" /><span style="color: red;">@ViewData["err2"]</span>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                            <a style="margin-left:60px;" href="@Url.Action("resetpass","User")">Quên mật khẩu</a>
+                        </div>
+
+                        //<div class="g-recaptcha" data-sitekey="6Lf-yw0jAAAAALppPdt2G7LjBv27PC_WyfUGYREg"></div>
+                        //6Lf-yw0jAAAAALppPdt2G7LjBv27PC_WyfUGYREg
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Content/js/Register.js"></script>
+    <script src="~/Content/js/mainRegister.js"></script>
+</body>
+</html>

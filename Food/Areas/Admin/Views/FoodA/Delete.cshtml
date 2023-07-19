@@ -1,0 +1,83 @@
+﻿@model Food.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin sản phẩm</h5>
+        <hr />
+        <h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+
+        <h3 style="color:red">Bạn quyết định xóa sản phẩm này?</h3>
+        <div>
+            <h4>@Html.Raw(ViewBag.ThongBao)</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên Sách:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    Loại Sản Phẩm
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Category.Name)
+                </dd>
+
+                <dt>
+                    Giá Bán:
+                </dt>
+
+                <dd>
+                    @Html.FormatValue(@Model.Price, "{0:#,##0}") VNĐ
+                </dd>
+
+                <dt>
+                    Mô Tả:
+                </dt>
+
+                <dd>
+                    @Html.Raw(@Model.Decription.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
+                </dd>
+
+                <dt>
+                    Ảnh:
+                </dt>
+
+                <dd>
+                    <img src="~/Images/@Model.Image" alt=" @Model.Name">
+                </dd>
+
+                <dt>
+                    Số Lượng:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Weight)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                    @Html.ActionLink("Về Trang Quản Lý Sản Phẩm", "Index")
+                </div>
+            }
+        </div>
+    </div>
+    
+
+    </div>

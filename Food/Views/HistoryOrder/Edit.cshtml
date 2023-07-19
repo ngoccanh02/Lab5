@@ -1,0 +1,112 @@
+﻿@using Food.Models
+@model Food.Models.OrderDetail
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_FoodLayoutPage1.cshtml";
+}
+<style>
+    .breadcrumb__text {
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        padding-left: 414px;
+    }
+</style>
+<div class="hero__search" style="margin-left:405px;margin-bottom:10px;">
+    <div class="hero__search__form">
+        @using (Html.BeginForm("Find", "Food", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập từ khóa tìm kiếm">
+            <button type="submit" class="site-btn">SEARCH</button>
+        }
+    </div>
+</div>
+<section class="breadcrumb-section set-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Hưng Vũ Vegetable</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index","Food")">Trang chủ</a>
+                        <span>@Html.ActionLink("Đơn hàng","ManageOrder", "HistoryOrder")</span>
+                    </div>
+                </div>
+                <img style="height:160px;" src="~/Content/Images/breadcrumb.jpg" />
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        @using (Html.BeginForm("Edit", "HistoryOrder", new { id =Model.OrderDetailID }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="checkout__form">
+                <h4>Thông tin đơn hàng</h4>
+                <form action="#">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <span style="color: red;">@ViewData["err1"]</span>
+                                    <div class="checkout__input">
+                                        <p>Họ và tên<span>*</span></p>
+                                        <input type="text" name="name" value="@Model.CustomerName">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="checkout__input">
+                                <p>Địa chỉ<span>*</span></p>
+                                <input type="text" value="@Model.Address" name="address">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Số điện thoại<span>*</span></p>
+                                        <input type="text" name="sdt" value="@Model.PhoneNumber">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="text" name="email" value="@Model.Email">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Đơn hàng của bạn</h4>
+                                <div class="checkout__order__products">Sản phẩm <span>Giá</span></div>
+                                <ul>
+                                        @{FoodStoreEntities db = new FoodStoreEntities();
+                                            int id = Convert.ToInt32(Model.ProductID);
+                                            Product pd = db.Products.SingleOrDefault(n => n.ProductID == id);
+                                        <li>@pd.Name<span>@Html.FormatValue(pd.Price * Model.Quantity, "{0:#,##0}")VNĐ</span></li>
+                                            }
+                                    
+                                </ul>
+                               <p>
+                                    @if(Model.PayStatus==0)
+                                    {
+                                        <h5 style="color:red">Chưa thanh toán</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5 style="color:green">Đã thanh toán</h5>
+                                    }
+                                </p>
+
+                            </div>
+                        </div>
+                </form>
+            </div>
+            <input type="submit"value="Thay đổi thông tin"/>
+        }
+    </div>
+</section>
+

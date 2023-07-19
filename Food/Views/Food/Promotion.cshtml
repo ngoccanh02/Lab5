@@ -1,0 +1,105 @@
+﻿@using Food.Models;
+@model IEnumerable<Food.Models.PromoDetail>
+<style>
+        .ribbon {
+            height: 188px;
+            position: relative;
+            margin-bottom: 30px;
+            background: url(https://html5book.ru/wp-content/uploads/2015/10/snow-road.jpg);
+            background-size: cover;
+            text-transform: uppercase;
+            color: white;
+        }
+    .ribbon1 {
+        position: absolute;
+        top: -6.1px;
+        right: 10px;
+    }
+
+        .ribbon1:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 53px solid transparent;
+            border-right: 53px solid transparent;
+            border-top: 10px solid #f8463f;
+        }
+
+        .ribbon1 span {
+            position: relative;
+            display: block;
+            text-align: center;
+            background: #f8463f;
+            font-size: 14px;
+            line-height: 1;
+            padding: 12px 8px 10px;
+            border-top-right-radius: 8px;
+            width: 90px;
+        }
+
+            .ribbon1 span:before,
+            .ribbon1 span:after {
+                position: absolute;
+                content: "";
+            }
+
+            .ribbon1 span:before {
+                height: 6px;
+                width: 6px;
+                left: -6px;
+                top: 0;
+                background: #f8463f;
+            }
+
+            .ribbon1 span:after {
+                height: 6px;
+                width: 8px;
+                left: -8px;
+                top: 0;
+                border-radius: 8px 8px 0 0;
+                background: #c02031;
+            }
+        
+        }
+</style>
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        FoodStoreEntities db = new FoodStoreEntities();
+        Promotion pr = db.Promotions.Single(m => m.PromotionID == item.PromotionID);
+    <div class="col-lg-5 col-md-4">
+        <div class="ribbon">
+            <span class="ribbon1"><span>Giảm @pr.Discount%</span></span>
+            <div style="background: #ebf6e0;text-align:center; border-radius: 2px; border: 1px solid #b3dc82; box-sizing: border-box; float: none; margin: 0px auto; outline: 0px; padding: 15px 20px; vertical-align: baseline; color: #5f9025; font-family: arial, sans-serif; font-size: 15px;">
+                <p><input type="hidden" id="idpromotion" value="@item.PromotionID"/></p>
+                <p></p>
+                <p style="text-align:center;color:darkblue;">@pr.Description</p>
+                <span>@String.Format("{0:d}", @pr.DateStart)-@String.Format("{0:d/M/yyyy}", @pr.DateEnd)</span>
+                <a id="collect" class="btn btn-outline-danger">Sưu tầm</a>
+            </div>
+        </div>
+    </div>
+            }
+    </div>
+<script>
+    $('#collect').click(function () {
+        let mgg = $('#idpromotion').val().trim();
+        $.ajax({
+            url: '@Url.Action("Collect","Food")',
+            type: 'post',
+            data: {
+                id: mgg
+            },
+            success: function (data) {
+                if (data.code == 200) {
+
+                    alert(data.msg)
+                } else {
+                    alert(data.msg)
+                }
+            }
+            });
+    })
+</script>

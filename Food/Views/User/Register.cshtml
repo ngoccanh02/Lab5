@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Content/css/style.css">
+</head>
+<body>
+
+    @if (ViewBag.ThongBao != null)
+    {
+        <script>
+        alert("@Html.Raw(@ViewBag.ThongBao)")
+        </script>
+    }
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Đăng kí</h2>
+                    @using (Html.BeginForm("Register", "User"))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i><span style="color: red;">*</span></label>
+                            <input type="text" name="username" id="name" placeholder="Họ và tên" /><span style="color: red;">@ViewData["err1"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><i class="zmdi zmdi-email"></i><span style="color: red;"> *</span></label>
+                            <input type="email" name="email" id="email" placeholder="Địa chỉ Email" /><span style="color: red;">@ViewData["err4"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="zmdi zmdi-lock"></i><span style="color: red;"> *</span></label>
+                            <input type="password" name="password" id="pass" placeholder="Nhập mật khẩu" /><span style="color: red;">@ViewData["err2"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i><span style="color: red;"> *</span></label>
+                            <input type="password" name="confirmpassword" id="re_pass" placeholder="Nhập lại mật khẩu" /><span style="color: red;">@ViewData["err3"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="zmdi zmdi-local-phone"></i><span style="color: red;"> * </span></label>
+                            <input type="text" name="phone" placeholder="Số điện thoại" /><span style="color: red;">@ViewData["err5"]</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="pass"><i class="zmdi zmdi-pin"></i><span style="color: red;"> *</span></label>
+                            <input type="text" name="address" placeholder="Địa chỉ" /><span style="color: red;">@ViewData["err6"]</span>
+                        </div>
+                        <div class="form-group form-button">
+                            <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
+                        </div>
+                    }
+                </div>
+                <div class="signup-image">
+                    <figure><img src="~/Content/Images/signup-image.jpg" alt="sing up image"></figure>
+                    <a href="@Url.Action("Login","User")" class="signup-image-link">Đã có tài khoản</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Content/js/Register.js"></script>
+    <script src="~/Content/js/mainRegister.js"></script>
+</body>
+</html>

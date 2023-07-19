@@ -1,0 +1,72 @@
+﻿@model Food.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Thông tin sản phẩm</h5>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Tên Sản Phẩm:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                Loại Sản Phẩm
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+
+            <dt>
+                Giá Bán:
+            </dt>
+
+            <dd>
+                @Html.FormatValue(@Model.Price, "{0:#,##0}") VNĐ
+            </dd>
+
+            <dt>
+                Mô Tả
+            </dt>
+
+            <dd>
+                @Html.Raw(@Model.Decription.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp"))
+            </dd>
+
+            <dt>
+                Ảnh
+            </dt>
+
+            <dd>
+                <img src="~/Content/Images/@Model.Image" alt=" @Model.Name">
+            </dd>
+
+            <dt>
+                Số Lượng
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Weight)
+            </dd>
+
+        </dl>
+        <p>
+          <a href="@Url.Action("Edit", new { id = Model.ProductID })" class="btn btn-warning" role="button">Sửa</a>|
+            @Html.ActionLink("Về trang quản lý sản phẩm", "Index")
+        </p>
+    </div>
+    
+
+    </div>
+
+
+
+

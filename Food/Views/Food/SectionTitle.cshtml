@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Food.Models.Category>
+@foreach (var item in Model)
+{
+    <li data-filter=".@item.Name">@item.Name</li>
+}

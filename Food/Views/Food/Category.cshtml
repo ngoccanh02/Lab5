@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Food.Models.Category>
+<style>
+    a:hover {
+        color: antiquewhite;
+    }
+</style>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li> <a href="@Url.Action("CategoryDetail","Food", new {id =item.CategoryID })">@item.Name</a></li>
+    }
+</ul>

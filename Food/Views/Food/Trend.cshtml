@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Food.Models.OrderDetail>
+@using Food.Models
+@foreach (var item in Model)
+{
+    FoodStoreEntities db = new FoodStoreEntities();
+    Product pr = db.Products.Single(s => s.ProductID == item.ProductID);
+    <div class="col-lg-3">
+        <div class="categories__item" style="width:200px;">
+            <a href="@Url.Action("Detail","Food",new {id = item.ProductID })">
+                <img style="min-width:200px" src="~/Content/Images/@pr.Image" /></a>
+                <h5><a href="@Url.Action("Detail","Food",new {id = item.ProductID })">@pr.Name</a></h5>
+</div>
+    </div>
+}

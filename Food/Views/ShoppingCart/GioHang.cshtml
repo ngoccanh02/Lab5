@@ -1,0 +1,254 @@
+﻿@using Food.Models
+@model List<CartDetail>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_FoodLayoutPage1.cshtml";
+}
+
+<style>
+    .breadcrumb__text {
+        color: #fff;
+        position: absolute;
+        bottom: 20px;
+        padding-left: 450px;
+    }
+
+    th {
+        text-align: center;
+    }
+</style>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="hero__search" style="margin-left:95px;">
+                    <div class="hero__search__form" style="margin-left: 236px;">
+                        @using (Html.BeginForm("Find", "Food", FormMethod.Get, new { @class = "form-inline" }))
+                        {
+                            <input type="text" value="@ViewBag.Keyword" name="searchString" placeholder="Nhập từ khóa tìm kiếm">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        }
+                    </div>
+                </div>
+                <div class="breadcrumb__text">
+                    <h2>Giỏ hàng</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index","Food")">Trang chủ</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+                <img src="~/Content/Images/baner-mini.jpg" />
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+< @if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(@ViewBag.ThongBao)")
+    </script>
+}
+<section class="shoping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__table">
+                    <table id="table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="checkall"/></th>
+                                <th class="shoping__product" style="width:41%;">Products</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                FoodStoreEntities db = new FoodStoreEntities();
+                                Product pd = db.Products.SingleOrDefault(n => n.ProductID == item.ProductID);
+                                <tr>
+                                   
+                                        <td><input type="checkbox" id="idproduct" value="@item.ProductID" onchange="Change(@item.ProductID)" /></td>
+                                    <td class="shoping__cart__item">
+                                        <img style="max-width:200px" src="~/Content/Images/@pd.Image" alt="">
+                                        <h5>@pd.Name</h5>
+                                    </td>
+                                    <td class="shoping__cart__price">
+                                        @Html.FormatValue(item.Price, "{0:#,##0}")VNĐ
+                                    </td>
+                                    @using (Html.BeginForm("CapNhatGioHang", "ShoppingCart", new { ProductID = item.ProductID }))
+                                    {
+
+                                        <td class="shoping__cart__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    <input type="number" name="quantity" value="@item.Quantity">
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="shoping__cart__total">
+
+                                            @item.TotalPrice
+
+                                        </td>
+                                        <td>
+                                            <input class="btn btn-success" type="submit" name="Update" value="Cập nhật" />
+                                        </td>
+
+                                    }
+                                    <td>
+                                        <a href="@Url.Action("Delete","ShoppingCart",new {idProduct=item.ProductID})" class="btn btn-default"><i class='fa fa-trash' style='color: red'></i></a>
+
+                                    </td>
+
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shoping__cart__btns">
+                    <a href="@Url.Action("Index","Food")" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
+                    <a href="@Url.Action("Payment","ShoppingCart")" id="thanhtoan1" class="primary-btn cart-btn cart-btn-right">
+                        Đặt hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="shoping__continue">
+                <div class="shoping__discount">
+                    <h5>Discount Codes</h5>
+                    <form action="#">
+                        <input type="text" placeholder="Enter your coupon code">
+                        <button type="submit" class="site-btn">APPLY COUPON</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="shoping__checkout">
+                <h5>Tổng tiền</h5>
+                <ul>
+                    <li>Total <span>@Html.FormatValue(@ViewBag.Tongtien, "{0:#,##0}")VNĐ</span></li>
+                </ul>
+                <a class="primary-btn" id="thanhtoantatca" href="#">Đặt hàng tất cả</a>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Shoping Cart Section End -->
+<script type="text/javascript">
+    $("#checkall").change(function () {
+        if (this.checked) {
+            $("#table input:checkbox").each(function () {
+                Change($(this).val());
+                $(this).attr("checked", true);
+            })
+        } else {
+            $("#table input:checkbox").each(function () {
+                Change($(this).val());
+                $(this).attr("checked", false);
+            })
+        }
+    })
+    function Change(va) {
+         $.ajax({
+            url: '@Url.Action("PayNeed","ShoppingCart")',
+            type: 'post',
+             data: {
+                 id: va
+            },
+            success: function (data) {
+                if (data.code == 200) {
+
+                    alert($(this).val())
+                } else {
+                }
+            }
+            });
+    }
+    window.onload = function () {
+        $("#table input:checkbox").each(function () {
+            $.ajax({
+            url: '@Url.Action("PayNeedNo","ShoppingCart")',
+            type: 'post',
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                if (data.code == 200) {
+
+                } else {
+                }
+            }
+            });
+       })
+    };
+    $('#thanhtoan').click(function () {
+        $("#table input:checked").each(function () {
+            $.ajax({
+            url: '@Url.Action("PayNeed","ShoppingCart")',
+            type: 'post',
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                if (data.code == 200) {
+
+                    alert($(this).val())
+                } else {
+                }
+            }
+            });
+        }),
+        location.replace("@Url.Action("Payment","ShoppingCart")");
+    })
+    function ReturnFalse() {
+        $("#table input:checkbox").each(function () {
+            $.ajax({
+            url: '@Url.Action("PayNeedNo","ShoppingCart")',
+            type: 'post',
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                } else {
+                }
+            }
+            });
+       })
+    }
+    $('#thanhtoantatca').click(function () {
+        $("#table input:checkbox").each(function () {
+            $.ajax({
+            url: '@Url.Action("PayNeed","ShoppingCart")',
+            type: 'post',
+            data: {
+                id: $(this).val()
+            },
+            success: function (data) {
+                if (data.code == 200) {
+                   
+                } else {
+                }
+            }
+            });
+        })
+        location.replace("@Url.Action("Payment","ShoppingCart")");
+    })
+</script>

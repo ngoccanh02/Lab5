@@ -1,0 +1,82 @@
+﻿@model Food.Models.Account
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+            <h2>Thêm Mới Tài Khoản</h2>
+
+            @using (Html.BeginForm())
+            { 
+            @Html.AntiForgeryToken();
+
+            <div class="form-horizontal">
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Tên Đăng Nhập
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" size="70" name="sTenDN" value="@ViewBag.UserName" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Tên Người Dùng
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" size="70" name="sTenND" value="@ViewBag.DisplayName" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-10">
+                        Mật Khẩu
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" size="70" name="sMK" value="@ViewBag.Password" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class=" col-md-10">
+                        Email
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" name="sEM" size="70" value="@ViewBag.Email" required />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class=" col-md-10">
+                        Số Điện Thoại
+                    </label>
+                    <div class="col-md-10">
+                        <input type="text" size="70" name="sPN" value="@ViewBag.PhoneNumber" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class=" col-md-10">
+                        Trạng Thái
+                    </label>
+                    <input type="number" size="70" name="sTT" value="@ViewBag.Status" required />
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Thêm Mới" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+            }
+            
+            <div>
+                @Html.ActionLink("Trở Về Trang Quản Lý Tài Khoản", "Index")
+            </div>
+      

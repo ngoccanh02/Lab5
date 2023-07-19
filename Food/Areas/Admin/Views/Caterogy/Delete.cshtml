@@ -1,0 +1,36 @@
+﻿@model Food.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 style="color:red">Bạn có thực sự muốn xóa Loại sản phẩm này</h3>
+        <div>
+            <h4>Thông Tin Loại Sản Phẩm</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    Tên Loại Sản Phẩm
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                    @Html.ActionLink("Trở Về Quản Lý Loại Sản Phẩm", "Index")
+                </div>
+            }
+        </div>
+    </div>
+</div>

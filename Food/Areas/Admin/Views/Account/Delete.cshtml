@@ -1,0 +1,77 @@
+﻿@model Food.Models.Account
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h3 style="color:red">Bạn có thực sự muốn xóa tài khoản này</h3>
+        <div>
+            <h4>Thông Tin Tài khoản</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    Tên Đăng Nhập:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+
+                <dt>
+                    Tên Người Dùng:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.DisplayName)
+                </dd>
+
+                <dt>
+                    Mật Khẩu:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Password)
+                </dd>
+
+                <dt>
+                    Email:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    Số Điện Thoại:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+
+                <dt>
+                    Trạng Thái:
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                    @Html.ActionLink("Trở Về Quản Lý Tài Khoản", "Index")
+                </div>
+            }
+        </div>
+        </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@model Food.Models.Account
+
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_FoodLayoutPage1.cshtml";
+}
+@if (ViewBag.ThongBao != null)
+{
+    <script>
+        alert("@Html.Raw(@ViewBag.ThongBao)")
+    </script>
+}
+<h2 style="text-align:center; color:red;">Thay đổi thông tin cá nhân</h2>
+
+@using (Html.BeginForm("Info", "User", new { id = Model.AccountID }))
+{
+    @Html.AntiForgeryToken()
+<div class="col-lg-8 col-md-6" style="margin-left:330px; margin-bottom:62px;">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="checkout__input">
+                <p>Họ và tên<span>*</span></p>
+                <input type="text" name="name" value="@Model.UserName">
+                <span>@ViewData["err1"]</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="checkout__input">
+        <p>Địa chỉ<span>*</span></p>
+        <input type="text" value="@Model.Address" name="address">
+        <span>@ViewData["err2"]</span>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="checkout__input">
+                <p>Số điện thoại<span>*</span></p>
+                <input type="text" name="sdt" value="@Model.PhoneNumber">
+                <span>@ViewData["err3"]</span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="checkout__input">
+                <p>Email<span>*</span></p>
+                <input type="text" name="email" value="@Model.Email">
+                <span>@ViewData["err4"]</span>
+            </div>
+        </div>
+    </div>
+
+    <input style="margin-left:300px" type="submit" value="Thay đổi thông tin" class="btn btn-success" />
+    <a href="@Url.Action("changepass","User")"><input  class="btn btn-danger" value="Đổi mật khẩu" /></a>
+</div>
+}

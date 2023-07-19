@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HungVuVegetable</title>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/style.css" type="text/css">
+   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <img src="~/Content/Images/logoFood.png">
+        </div>
+        
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active">@Html.ActionLink("Trang chủ", "Index", "Food")</li>
+                <li>@Html.ActionLink("Cửa hàng", "Shop", "Food")</li>
+                @if (Session["TaiKhoan"] != null)
+                {
+                    <li>@Html.ActionLink("Đơn hàng", "ManageOrder", "HistoryOrder")</li>
+                }
+                <li><a href="./contact.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="header__top__right__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-pinterest-p"></i></a>
+        </div>
+        <div class="humberger__menu__contact">
+            <ul>
+                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li>Free Shipping for all Order of $99</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Humberger End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo" style="height: 135px; width: 117px; margin-left: 70px">
+                        <a href="./index.html"><img src="~/Content/Images/logoFood.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    @if (Session["TaiKhoan"] != null)
+                    {
+                        <nav class="header__menu" style="margin-left:87px;margin-top:50px;">
+                            <ul>
+                                <li class="active" style="margin-left:-13px;">@Html.ActionLink("Trang chủ", "Index", "Food")</li>
+                                <li style="margin-left:-13px;">@Html.ActionLink("Cửa hàng", "Shop", "Food")</li>
+                                @if (Session["TaiKhoan"] != null)
+                                {
+                                    <li style="margin-left:-13px;">@Html.ActionLink("Đơn hàng", "ManageOrder", "HistoryOrder")</li>
+                                }
+                                <li style="margin-left:-13px;"><a href="./contact.html">Liên hệ</a></li>
+                            </ul>
+                        </nav>
+                        
+                        }
+                        else
+                        {
+                        <nav class="header__menu" style="margin-left:180px;margin-top:50px;">
+                            <ul>
+                                <li class="active" style="margin-left:-13px;">@Html.ActionLink("Trang chủ", "Index", "Food")</li>
+                                <li style="margin-left:-13px;">@Html.ActionLink("Cửa hàng", "Shop", "Food")</li>
+                                <li style="margin-left:-13px;"><a href="./contact.html">Liên hệ</a></li>
+                            </ul>
+                        </nav>
+                        }</div >
+                            <div class="col-lg-3">
+                            <div class="header__cart">
+                                <ul style="margin-right:-51px; ">
+                                    <li>@Html.Action("LoginLogout", "Food") </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    @RenderBody()
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="~/Content/Images/logoFood.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__about">
+                        <ul>
+                            <li>Địa chỉ: Thủ Dầu Một-Bình Dương</li>
+                            <li>Phone: 0757628496</li>
+                            <li>Email: HVvegetable@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                        <h6>Tham gia ngay</h6>
+                        <p>Nhập Email để nhận thông báo mới nhất từ trang Web</p>
+                        <form action="#">
+                            <input type="text" placeholder="Nhập Email của bạn">
+                            <button type="submit" class="site-btn">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved 
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.nice-select.min.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.js"></script>
+    <script src="~/Content/js/mixitup.min.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+
+</body>
+</html>

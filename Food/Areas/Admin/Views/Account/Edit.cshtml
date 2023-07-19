@@ -1,0 +1,88 @@
+﻿@model Food.Models.Account
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Sửa Thông Tin Tài Khoản</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Tài Khoản</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-2">Mã Tài Khoản:</label>
+        <div class="col-md-10">
+            <input type="text" size="70" name="iMaTK" value="@Model.AccountID" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Tên Đăng Nhập
+        </label>
+        <div class="col-md-10">
+            <input type="text" size="70" name="sTenDN" value="@Model.UserName" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2">
+            Tên Người Dùng
+        </label>
+        <div class="col-md-10">
+            <input type="text" size="70" name="sTenND" value="@Model.DisplayName" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-10">
+            Mật Khẩu
+        </label>
+        <div class="col-md-10">
+            <input type="text" size="70" name="sMK" value="@Model.Password" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class=" col-md-10">
+            Email
+        </label>
+        <div class="col-md-10">
+            <input type="text" name="sEM" size="70" value="@Model.Email" required />
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class=" col-md-10">
+            Số Điện Thoại
+        </label>
+        <div class="col-md-10">
+            <input type="text" size="70" name="sPN" value="@Model.PhoneNumber" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class=" col-md-10">
+            Trạng Thái
+        </label>
+        <input type="number" size="70" name="sTT" value="@Model.Status" required />
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu Thông Tin" class="btn btn-warning" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Trở về trang quản lý tài khoản", "Index")
+</div>
